@@ -1,5 +1,7 @@
 import React from 'react';
 
+import StoryKanban from "./StoryKanban";
+
 const data_storys = [
   {
     id: 0,
@@ -27,36 +29,7 @@ const data_storys = [
   }
 ];
 
-const TaskKanban = React.createClass({
-  render() {
-    return (
-      <div>
-        <div>{this.props.title}</div>
-        <div>{this.props.assign}</div>
-        <div>{this.props.description}</div>
-      </div>
-    );
-  }
-});
-
-const StroryKanban = React.createClass({
-  render() {
-    const tasks = this.props.tasks.map( (task, i) => {
-      return (
-        <TaskKanban key={i} title={task.title} assign={task.assign} state={task.state} description={task.description} />
-      );
-    });
-    return (
-      <div>
-        <div>{this.props.title}</div>
-        <div>{this.props.id}</div>
-        {tasks}
-      </div>
-    );
-  }
-});
-
-const Dashboard = React.createClass({
+const Page = React.createClass({
   getInitialState() {
     return {
       storys: data_storys
@@ -66,7 +39,7 @@ const Dashboard = React.createClass({
   render() {
     const storys = this.state.storys.map( (story, i) => {
       return (
-        <StroryKanban title={story.title} tasks={story.tasks} id={story.id} key={i} />
+        <StoryKanban title={story.title} tasks={story.tasks} id={story.id} key={i} />
       );
     });
 
@@ -78,4 +51,4 @@ const Dashboard = React.createClass({
   }
 });
 
-export default Dashboard;
+export default Page;
