@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "sourceMap": true,
+        "outDir": "dist"
+    },
+    "filesGlob": [
+        "src/**/*.ts",
+        "lib/**/*.ts",
+        "!ignored/**/*.ts"
+    ],
+    "files": [
+        "lib/ajax.ts",
+        "lib/kanban.ts"
+    ]
+}
