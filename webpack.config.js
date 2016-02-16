@@ -5,7 +5,7 @@ module.exports = {
     path.join(__dirname, 'src', 'Main.jsx')
   ],
   output: {
-    path: path.join(__dirname,'/public'),
+    path: path.join(__dirname, '/public'),
     filename: 'bundle.js'
   },
   resolve: {
@@ -22,7 +22,15 @@ module.exports = {
         query: {
           presets: ['es2015', 'react']
         }
-      },
+      }
     ]
-  }
+  },
+  plugins: [
+    function () {
+      this.plugin('watch-run', (watching, callback) => {
+        console.log('\033[36m' + 'Begin compile at ' + new Date() + ' \033[39m')
+        callback()
+      })
+    }
+  ]
 }
