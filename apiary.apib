@@ -15,13 +15,17 @@ HOST: http://localhost
                 "_id": "abEJ5Z3ZebbLeYhh",
                 "id": 0,
                 "title": "Sotry 1",
-                "state": "done"
+                "state": "done",
+                "createAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)",
+                "updateAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)"
             },
             {
                 "_id": "kJEui78qEpA6e70A",
                 "id": 0,
                 "title": "Sotry 2",
-                "state": "todo"
+                "state": "todo",
+                "createAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)",
+                "updateAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)"
             },
         ]
         
@@ -42,7 +46,9 @@ HOST: http://localhost
             "id": 0,
             "title": "New Story 1",
             "state": "doing",
-            "task": [0, 1, 2]
+            "task": [0, 1, 2],
+            "createAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)",
+            "updateAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)"
         }
 
 ## 特定のストーリー [/story/{id}]
@@ -59,7 +65,9 @@ HOST: http://localhost
             "id": 0,
             "title": "Story 1",
             "state": "todo",
-            "task": [0, 1]
+            "task": [0, 1],
+            "createAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)",
+            "updateAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)"
         }
 
 ### 指定ストーリーの内容を更新 [PUT]
@@ -82,7 +90,9 @@ HOST: http://localhost
             "id": 0,
             "title": "Update Story 1",
             "state": "doing",
-            "task": [0, 1, 2]
+            "task": [0, 1, 2],
+            "createAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)",
+            "updateAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)"
         }
 
 ### 特定ストーリーの削除 [DELETE]
@@ -97,7 +107,9 @@ HOST: http://localhost
             "id": 0,
             "title": "Story 1",
             "state": "todo",
-            "task": [0, 1]
+            "task": [0, 1],
+            "createAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)",
+            "updateAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)"
         }
 
 ## タスク [/task]
