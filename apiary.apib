@@ -1,0 +1,147 @@
+FORMAT: 1A
+HOST: http://localhost
+
+# agile-kanban
+
+
+## ストーリー [/stories]
+
+### 一覧取得 [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "_id": "ABCDEFGH",
+                "id": 0,
+                "title": "Sotry 1",
+                "state": "done"
+            }
+        ]
+        
+### 新規ストーリーの作成 [POST]
+
++ Request (application/json)
+
+        {
+            "title": "New Story 1",
+            "state": "doing",
+            "task": [0, 1, 2]
+        }
+
++ Response 200 (application/json)
+
+        {
+            "_id": "IJKLMN",
+            "id": 0,
+            "title": "New Story 1",
+            "state": "doing",
+            "task": [0, 1, 2]
+        }
+
+## 特定のストーリー [/story/{id}]
+
+### 指定ストーリーの内容を取得 [GET]
+
++ Parameters
+    + id (number, 1) - ストーリーのID
+
++ Response 200 (application/json)
+
+        {
+            "_id": "IJKLMN",
+            "id": 0,
+            "title": "Story 1",
+            "state": "todo",
+            "task": [0, 1]
+        }
+
+### 指定ストーリーの内容を更新 [PUT]
+
++ Parameters
+    + id (number, 1) - ストーリーのID
+
++ Request (application/json)
+
+        {
+            "title": "Update Story 1",
+            "state": "doing",
+            "task": [0, 1, 2]
+        }
+
++ Response 200 (application/json)
+
+        {
+            "_id": "IJKLMN",
+            "id": 0,
+            "title": "Update Story 1",
+            "state": "doing",
+            "task": [0, 1, 2]
+        }
+
+### 特定ストーリーの削除 [DELETE]
+
++ Parameters
+    + id (number, 1) - ストーリーのID
+
++ Response 200 (application/json)
+
+        {
+            "_id": "IJKLMN",
+            "id": 0,
+            "title": "Story 1",
+            "state": "todo",
+            "task": [0, 1]
+        }
+
+## タスク [/task]
+
+### 一覧取得 [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "_id": "mtgJ3bAZeNbEjEhA",
+                "id": 0,
+                "title": "Task 1",
+                "state": "todo"
+            },
+            {
+                "_id": "asifjBaeAeBEAdee",
+                "id": 0,
+                "title": "Task 2",
+                "state": "doing"
+            }
+        ]
+
+### 新規タスクの作成 [POST]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+## 特定のタスク [/task/{id}]
+
+### 特定のタスクの内容を取得 [GET]
+
++ Parameters
+    + id (number, 1) - タスクのID
+    
++ Response 200 (application/json)
+
+### 特定のタスクの内容を更新 [PUT]
+
++ Parameters
+    + id (number, 1) - タスクのID
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+### 特定のタスクの削除 [DELETE]
+
++ Parameters
+    + id (number, 1) - タスクのID
+
++ Response 200 (application/json)
