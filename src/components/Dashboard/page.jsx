@@ -1,54 +1,62 @@
 import React from 'react';
+import $ from "jquery";
 
 import StoryKanban from "./StoryKanban";
+import Api from "../../api";
 
-const data_storys = [
-  {
-    id: 0,
-    title: "Story 1",
-    tasks: [
-      {
-        title: "Task 1",
-        description: "Description...",
-        assign: "Naoki Iwata",
-        state: "todo",
-      },
-      {
-        title: "Task 2",
-        description: "Description...",
-        assign: "Naoki Iwata",
-        state: "doing",
-      },
-      {
-        title: "Task 3",
-        description: "Description...",
-        assign: "Naoki Iwata",
-        state: "done",
-      }
-    ]
-  }
-];
+const api = new Api()
 
-const Page = React.createClass({
-  getInitialState() {
-    return {
-      storys: data_storys
+export default class Page extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      stories: []
     };
-  },
+  }
+
+  componentWillMount() {
+    $.ajax({
+        method: 'GET',
+        url: '/api/story',
+        cache: false,
+        success: (data) => {
+          if (data.result === 'ok') {
+            this.setState({stories: data.message})
+          } else {
+            this.props.onError(data.message)
+          }
+        },
+        error: (xhr, message, err) => {
+          this.props.onError(err)
+        }
+      })
+  }
+
+  componentDidMount() {
+  }
+  
+  handleError(err) {
+    console.error(err)
+  }
 
   render() {
-    const storys = this.state.storys.map( (story, i) => {
-      return (
-        <StoryKanban title={story.title} tasks={story.tasks} id={story.id} key={i} />
-      );
-    });
+    var stories;
+    if (this.state.stories) {
+      stories = this.state.stories.map( (story, i) => {
+        return (
+          <StoryKanban
+              key={i}
+              onError={this.handleError.bind(this)}
+              title={story.title}
+              id={story.id} />
+        );
+      });
+    }
 
     return (
       <div>
-        {storys}
+        {stories}
       </div>
     );
   }
-});
-
-export default Page;
+}
