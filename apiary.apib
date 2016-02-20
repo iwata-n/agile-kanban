@@ -1,0 +1,231 @@
+FORMAT: 1A
+HOST: http://localhost
+
+# agile-kanban
+
+
+## ストーリー [/stories]
+
+### 一覧取得 [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "_id": "abEJ5Z3ZebbLeYhh",
+                "id": 0,
+                "title": "Sotry 1",
+                "state": "done"
+            },
+            {
+                "_id": "kJEui78qEpA6e70A",
+                "id": 0,
+                "title": "Sotry 2",
+                "state": "todo"
+            },
+        ]
+        
+### 新規ストーリーの作成 [POST]
+
++ Request (application/json)
+
+        {
+            "title": "New Story 1",
+            "state": "doing",
+            "task": [0, 1, 2]
+        }
+
++ Response 200 (application/json)
+
+        {
+            "_id": "abEJ5Z3ZebbLeYhh",
+            "id": 0,
+            "title": "New Story 1",
+            "state": "doing",
+            "task": [0, 1, 2]
+        }
+
+## 特定のストーリー [/story/{id}]
+
+### 指定ストーリーの内容を取得 [GET]
+
++ Parameters
+    + id (number, 1) - ストーリーのID
+
++ Response 200 (application/json)
+
+        {
+            "_id": "abEJ5Z3ZebbLeYhh",
+            "id": 0,
+            "title": "Story 1",
+            "state": "todo",
+            "task": [0, 1]
+        }
+
+### 指定ストーリーの内容を更新 [PUT]
+
++ Parameters
+    + id (number, 1) - ストーリーのID
+
++ Request (application/json)
+
+        {
+            "title": "Update Story 1",
+            "state": "doing",
+            "task": [0, 1, 2]
+        }
+
++ Response 200 (application/json)
+
+        {
+            "_id": "abEJ5Z3ZebbLeYhh",
+            "id": 0,
+            "title": "Update Story 1",
+            "state": "doing",
+            "task": [0, 1, 2]
+        }
+
+### 特定ストーリーの削除 [DELETE]
+
++ Parameters
+    + id (number, 1) - ストーリーのID
+
++ Response 200 (application/json)
+
+        {
+            "_id": "abEJ5Z3ZebbLeYhh",
+            "id": 0,
+            "title": "Story 1",
+            "state": "todo",
+            "task": [0, 1]
+        }
+
+## タスク [/task]
+
+### 一覧取得 [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "_id": "mtgJ3bAZeNbEjEhA",
+                "id": 0,
+                "title": "Task 1",
+                "state": "todo"
+            },
+            {
+                "_id": "asifjBaeAeBEAdee",
+                "id": 0,
+                "title": "Task 2",
+                "state": "doing"
+            }
+        ]
+
+### 新規タスクの作成 [POST]
+
++ Request (application/json)
+
+        {
+            "title": "New Task",
+            "assign": "Hoo",
+            "description": "hogehogehooo!",
+            "tags": [0, 1, 4],
+            "workload": {
+                "estimate": 1,
+            },
+        }
+
++ Response 200 (application/json)
+
+        {
+            "title": "New Task",
+            "state": "todo",
+            "assign": "Hoo",
+            "description": "hogehogehooo!",
+            "tags": [0, 1, 4],
+            "workload": {
+                "estimate": 1,
+                "result": 0
+            },
+            "createAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)",
+            "updateAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)"
+        }
+
+## 特定のタスク [/task/{id}]
+
+### 特定のタスクの内容を取得 [GET]
+
++ Parameters
+    + id (number, 1) - タスクのID
+    
++ Response 200 (application/json)
+
+        {
+            "title": "New Task",
+            "state": "todo",
+            "assign": "Hoo",
+            "description": "hogehogehooo!",
+            "tags": [0, 1, 4],
+            "workload": {
+                "estimate": 1,
+                "result": 0
+            },
+            "createAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)",
+            "updateAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)"
+        }
+
+### 特定のタスクの内容を更新 [PUT]
+
++ Parameters
+    + id (number, 1) - タスクのID
+
++ Request (application/json)
+
+        {
+            "title": "Update Task",
+            "state": "doing",
+            "assign": "Hoo",
+            "description": "hogehogehooo!",
+            "tags": [0, 1],
+            "workload": {
+                "estimate": 1,
+                "result": 0.5
+            },
+        }
+
++ Response 200 (application/json)
+
+        {
+            "title": "Update Task",
+            "state": "todo",
+            "assign": "Hoo",
+            "description": "hogehogehooo!",
+            "tags": [0, 1],
+            "workload": {
+                "estimate": 1,
+                "result": 0.5
+            },
+            "createAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)",
+            "updateAt": "Sat Feb 20 2016 16:38:52 GMT+0900 (JST)"
+        }
+
+### 特定のタスクの削除 [DELETE]
+
++ Parameters
+    + id (number, 1) - タスクのID
+
++ Response 200 (application/json)
+
+        {
+            "title": "Task",
+            "state": "todo",
+            "assign": "Hoo",
+            "description": "hogehogehooo!",
+            "tags": [0, 1, 4],
+            "workload": {
+                "estimate": 1,
+                "result": 0
+            },
+            "createAt": "Sat Feb 20 2016 15:10:36 GMT+0900 (JST)",
+            "updateAt": "Sat Feb 20 2016 16:10:32 GMT+0900 (JST)"
+        }
