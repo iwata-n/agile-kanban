@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   entry: [
-    path.join(__dirname, 'src', 'Main.jsx')
+    path.join(__dirname, 'src', 'jsx', 'Main.jsx')
   ],
   output: {
     path: path.join(__dirname, '/public'),
