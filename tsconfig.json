@@ -10,10 +10,11 @@
     "filesGlob": [
         "src/**/*.ts",
         "lib/**/*.ts",
+        "test/**/*.ts",
         "!ignored/**/*.ts"
     ],
     "files": [
-        "lib/ajax.ts",
-        "lib/kanban.ts"
+        "src/ts/Model.ts",
+        "test/Model.test.ts"
     ]
 }
