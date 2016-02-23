@@ -1,0 +1,20 @@
+{
+    "version": "0.1.0",
+    "command": "gulp",
+    "isShellCommand": true,
+    "args": [
+    ],
+    "tasks": [
+        {
+            "taskName": "coverage",
+            "args": ["coverage"],
+            "isTestCommand": false
+        },
+        {
+          "taskName": "build",
+          "suppressTaskName": false,
+          "args": [],
+          "problemMatcher": "$tsc"
+        }
+    ]
+}
