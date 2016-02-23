@@ -5,6 +5,7 @@ tmp/
 node_modules/
 dist
 typings
+coverage
 
 **/bundle.js
 
