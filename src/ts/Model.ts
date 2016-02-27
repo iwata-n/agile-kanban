@@ -12,7 +12,7 @@ interface IKey {
 }
 
 class Key implements IKey {
-  constructor(public value: string) {}
+  constructor(public value?: string) {}
 }
 
 interface ITitle {
@@ -45,18 +45,23 @@ interface ITime {
 }
 
 interface IData {
+  _id: string;
   submit(fn?: Function): void;
   delete(fn?: Function): void;
 }
 
-export class Data implements ITime {
+export class Data implements ITime, IData {
   private _updateAt: Date;
   private _createAt: Date;
+  private __id: Key = new Key();
   private dbName: string = "database.db";
 
-  constructor() {
+  constructor(id?: string) {
     this._createAt = new Date();
     this._updateAt = new Date();
+    if (id != null) {
+      this._id = id;
+    }
   }
 
   load(dbName: string): void {
@@ -75,6 +80,14 @@ export class Data implements ITime {
     return this._createAt;
   }
 
+  get _id(): string {
+    return this.__id.value;
+  }
+
+  private set setId(value: string) {
+    this.__id.value = value;
+  }
+
   /**
    * データベースへ反映の実態
    * 継承先では_submitを呼ぶ
@@ -90,13 +103,26 @@ export class Data implements ITime {
           reject(err);
           return;
         }
-        db.insert(obj, (err, newDoc) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-          resolve(newDoc);
-        });
+
+        if (this._id == null) {
+          db.insert(obj, (err, newDoc) => {
+            if (err) {
+              reject(err);
+              return;
+            }
+            this.__id.value = newDoc._id;
+            resolve(newDoc);
+          });
+        } else {
+          // replace
+          db.update({_id: this._id}, obj, {}, (err, numReplaced) => {
+            if (err) {
+              reject(err);
+              return;
+            }
+            resolve(this);
+          });
+        }
       });
     });
   }
@@ -113,8 +139,7 @@ export class Data implements ITime {
   }
 }
 
-interface ITask {
-  id: string;
+interface ITask extends IData {
   title: string;
   status: string;
   assign: string;
@@ -124,16 +149,10 @@ export class Task extends Data implements ITask {
   private _title: Title = new Title("no title");
   private _status: Status = new Status("todo");
   private _assign: Assign = new Assign("");
-  private _id: Key = new Key("");
 
   constructor(id?: string) {
     super();
-    this._id.value = id;
     this.load("task.db");
-  }
-
-  get id(): string {
-    return this._id.value;
   }
 
   set title(value: string) {
@@ -213,7 +232,7 @@ export class Story extends Task implements IStory {
 
   get task(): Array<string> {
     return this._task.map((t) => {
-      return t.id;
+      return t._id;
     });
   }
 
@@ -233,6 +252,10 @@ export class Story extends Task implements IStory {
  */
 export class DataManager<T> {
   private _dbName = "task.db";
+
+  constructor(dbName: string) {
+    this._dbName = dbName;
+  }
 
   /**
    * クエリで検索
@@ -285,7 +308,13 @@ export class DataManager<T> {
 }
 
 export class TaskManager extends DataManager<Task> {
+  constructor() {
+    super("task.db");
+  }
 }
 
 export class StoryManager extends DataManager<Story> {
+  constructor() {
+    super("stroy.db");
+  }
 }
